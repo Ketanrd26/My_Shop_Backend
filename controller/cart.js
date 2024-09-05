@@ -55,7 +55,7 @@ const userCartItem = async (req, res) => {
     const { userId } = req.params;
   
     try {
-      const cartItem = await cart.findOne(userId);
+      const cartItem = await cart.find({ userId: userId });
   
       res.status(200).json({
         status: "success",

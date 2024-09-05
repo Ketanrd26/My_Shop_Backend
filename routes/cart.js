@@ -7,7 +7,7 @@ const cartRoute = express.Router();
 cartRoute.post("/addCart", verifyTokenAuth, cartItem );
 cartRoute.put("/updateCart", verifyTokenAuth, updatedCart );
 cartRoute.delete("/deleteCart", verifyTokenAuth, DeleteCart );
-cartRoute.get("/userCart", verifyTokenAuth, userCartItem );
+cartRoute.get("/userCart/:userId", verifyTokenAuth, userCartItem );
 cartRoute.get("/CartList", verifyAdmin, userAllCart );
 
 module.exports = cartRoute 

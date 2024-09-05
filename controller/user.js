@@ -57,7 +57,7 @@ const login = async (req, res) => {
       },
       jwtkey,
       {
-        // expiresIn: "1d",
+        expiresIn: "1d",
       }
     );
     // const { password, ...others } = user._doc;
@@ -99,6 +99,20 @@ const updatedUser = async (req, res) => {
     });
   }
 };
+
+// const logOutUser = async (req, res) => {
+//   try {
+//     const {username} = req.body;
+
+//     const response = await UserSchema.findOne(username);
+
+//   } catch (error) {
+//     res.status(500).json({
+//       messgae:error.messgae
+//     })
+//   }
+// };
+
 // delete user
 const deleteUser = async (req, res) => {
   const { id } = req.params;
