@@ -57,7 +57,7 @@ const login = async (req, res) => {
       },
       jwtkey,
       {
-        expiresIn: "1d",
+        // expiresIn: "1d",
       }
     );
     // const { password, ...others } = user._doc;
