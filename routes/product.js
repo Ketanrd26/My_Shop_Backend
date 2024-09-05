@@ -10,7 +10,7 @@ const { verifyAdmin } = require("../middleware/verifyToken");
 
 const productRoute = express.Router();
 
-productRoute.get("/addProduct", verifyAdmin, productAdd);
+productRoute.post("/addProduct", verifyAdmin, productAdd);
 productRoute.put("/updateProduct/:id", verifyAdmin, updatedProduct);
 productRoute.delete("/deleteProduct/:id", verifyAdmin, DeleteProduct);
 productRoute.post("/productItem/:id", ProductItem);
