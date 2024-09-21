@@ -3,7 +3,10 @@ const product = require("../models/product");
 // add product
 
 const productAdd = async (req, res) => {
-  const productList = new product(req.body);
+  const img = req.file ? req.file.filename : null; 
+  const productList = new product({...req.body, img});
+    
+
 
   try {
     const newProduct = await productList.save();
