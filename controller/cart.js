@@ -56,7 +56,7 @@ const userCartItem = async (req, res) => {
   
     try {
       const cartItem = await cart.find({ userId: userId });
-  
+     
       res.status(200).json({
         status: "success",
         cartItem,
