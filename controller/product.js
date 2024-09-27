@@ -3,22 +3,21 @@ const product = require("../models/product");
 // add product
 
 const productAdd = async (req, res) => {
-  const img = req.file ? req.file.filename : null; 
-  const productList = new product({...req.body, img});
-    
-
+  const img = req.file ? req.file.buffer.toString('base64') : null; 
+  const productList = new product({ ...req.body, img });
 
   try {
     const newProduct = await productList.save();
-
     res.status(200).json(newProduct);
   } catch (error) {
     res.status(500).json(error);
   }
 };
 
-// updated product
 
+
+
+// updated product
 const updatedProduct = async (req, res) => {
   const { id } = req.params;
 
@@ -30,12 +29,13 @@ const updatedProduct = async (req, res) => {
       },
       { new: true }
     );
-
     res.status(200).json(updateProduct);
   } catch (error) {
     res.status(500).json(error);
   }
 };
+
+
 
 // delete product
 const DeleteProduct = async (req, res) => {
@@ -52,6 +52,7 @@ const DeleteProduct = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
 
 // get product by id
 const ProductItem = async (req, res) => {

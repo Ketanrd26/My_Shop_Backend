@@ -7,7 +7,7 @@ const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const cors = require("cors")
-
+const path = require('path');
 
 
 
@@ -16,6 +16,9 @@ const app = express();
 app.use(cors())
 app.use(express.json());
 dotenv.config();
+
+app.use('/productImages', express.static(path.join(__dirname, 'productImages')));
+
 
 
 const mongoDbShell = process.env.MONGO_URI;
