@@ -2,10 +2,15 @@ const cart = require("../models/cart");
 
 // create cart
 const cartItem = async (req, res) => {
-  const newCart = new cart(req.body);
+ 
 
   try {
+    const newCart = new cart(req.body);
+
     const savedCard = await newCart.save();
+
+ 
+  
     res.status(200).json(savedCard);
   } catch (error) {
     res.status(500).json(error);
@@ -66,6 +71,24 @@ const userCartItem = async (req, res) => {
     }
   };
 
+
+  // get user cart Length
+const userCartItemLength = async (req, res) => {
+    const { userId } = req.body;
+  
+    try {
+      const cartItem = await cart.find({ userId: userId });
+     
+      res.status(200).json({
+        status: "success",
+        cartItem,
+        cartItemLength : cartItem.length
+      });
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  };
+
 //   get cart
 const userAllCart = async (req, res) => {
 
@@ -81,4 +104,4 @@ const userAllCart = async (req, res) => {
       res.status(500).json(error);
     }
   };
-module.exports = { cartItem,updatedCart ,DeleteCart,userCartItem, userAllCart};
+module.exports = { cartItem,updatedCart ,DeleteCart,userCartItem, userAllCart, userCartItemLength};

@@ -11,10 +11,10 @@ const CartSchema = mongoose.Schema(
         productId: {
           type: String,
         },
-        qantity: {
-          type: Number,
-          default: 1,
-        },
+        // qantity: {
+        //   type: Number,
+        //   default: 1,
+        // },
       },
     ],
   },

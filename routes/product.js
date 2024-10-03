@@ -29,5 +29,5 @@ productRoute.post("/addProduct", upload.single("img"), verifyAdmin, productAdd);
 productRoute.put("/updateProduct/:id", verifyAdmin, updatedProduct);
 productRoute.delete("/deleteProduct/:id", verifyAdmin, DeleteProduct);
 productRoute.post("/productItem/:id", ProductItem);
-productRoute.post("/productList", ProductItemList);
+productRoute.get("/productList", ProductItemList);
 module.exports = productRoute;
