@@ -73,21 +73,28 @@ const userCartItem = async (req, res) => {
 
 
   // get user cart Length
-const userCartItemLength = async (req, res) => {
+  const userCartItemLength = async (req, res) => {
     const { userId } = req.body;
   
     try {
       const cartItem = await cart.find({ userId: userId });
-     
+  
+      // Collect all productIds
+      const allProductIds = cartItem.flatMap(item => item.products.map(product => product.productId));
+  
+      // Filter out duplicates by using a Set
+      const uniqueProductIds = [...new Set(allProductIds)];
+  
       res.status(200).json({
         status: "success",
         cartItem,
-        cartItemLength : cartItem.length
+        cartItemLength: uniqueProductIds.length 
       });
     } catch (error) {
       res.status(500).json(error);
     }
   };
+  
 
 //   get cart
 const userAllCart = async (req, res) => {
