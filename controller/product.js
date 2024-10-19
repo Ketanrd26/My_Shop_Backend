@@ -1,19 +1,31 @@
 const product = require("../models/product");
+const upload = require("../middleware/multer");
 
+const cloudinary = require("../utils/cloudinary")
 // add product
 
 const productAdd = async (req, res) => {
-  
-  const img = req.file ? req.file.path : null; 
-  const productList = new product({ ...req.body, img });
-
   try {
+    // Upload image to Cloudinary if file exists
+    const img = req.file ? await cloudinary.uploader.upload(req.file.path) : null;
+
+    // Save the URL of the uploaded image
+    const productList = new product({
+      ...req.body,
+      img: img ? img.secure_url : null // Use Cloudinary's secure URL
+    });
+
+    // Save the product in the database
     const newProduct = await productList.save();
+
+    // Respond with the new product
     res.status(200).json(newProduct);
   } catch (error) {
+    // Handle any errors during product creation
     res.status(500).json(error);
   }
 };
+
 
 
 // updated product

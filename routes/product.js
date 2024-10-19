@@ -9,18 +9,13 @@ const {
 const { verifyAdmin } = require("../middleware/verifyToken");
 const multer = require("multer");
 const path = require("path")
+
+const upload = require("../middleware/multer")
+
+
+
 const productRoute = express.Router();
 
-const storage = multer.diskStorage({
-  destination: "./productImages/", // Directory where the file will be saved
-  filename: (req, file, cb) => {
-    cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
-  },
-});
-
-const upload = multer({
-  storage: storage,
-});
 
 
 productRoute.post("/addProduct", upload.single("img"), verifyAdmin, productAdd);
