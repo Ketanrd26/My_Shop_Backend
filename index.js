@@ -17,7 +17,7 @@ app.use(cors())
 app.use(express.json());
 dotenv.config();
 
-app.use('/productImages', express.static('productImages'));
+app.use('/productImages', express.static('productImages '));
 
 
 
