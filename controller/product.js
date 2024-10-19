@@ -3,7 +3,8 @@ const product = require("../models/product");
 // add product
 
 const productAdd = async (req, res) => {
-  const img = req.file ? req.file.buffer.toString('base64') : null; 
+  
+  const img = req.file ? req.file.path : null; 
   const productList = new product({ ...req.body, img });
 
   try {
@@ -13,8 +14,6 @@ const productAdd = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
-
 
 
 // updated product
@@ -35,8 +34,6 @@ const updatedProduct = async (req, res) => {
   }
 };
 
-
-
 // delete product
 const DeleteProduct = async (req, res) => {
   const { id } = req.params;
@@ -52,7 +49,6 @@ const DeleteProduct = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 
 // get product by id
 const ProductItem = async (req, res) => {
@@ -78,19 +74,16 @@ const ProductItemList = async (req, res) => {
   try {
     let products;
 
-    if(qNew){
-        products = await product.find().sort({createdAt:-1}).limit(5);
-
-    }else if(qCategory){
-        products = await product.find({
-            categories:{
-                $in:[
-                    qCategory
-                ]
-            }
-        })
-    }else{
-        products = await product.find()
+    if (qNew) {
+      products = await product.find().sort({ createdAt: -1 }).limit(5);
+    } else if (qCategory) {
+      products = await product.find({
+        categories: {
+          $in: [qCategory],
+        },
+      });
+    } else {
+      products = await product.find();
     }
 
     res.status(200).json({
