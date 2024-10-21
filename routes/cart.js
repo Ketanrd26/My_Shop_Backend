@@ -6,7 +6,7 @@ const { cartItem, updatedCart, DeleteCart, userCartItem, userAllCart, userCartIt
 const cartRoute = express.Router();
 cartRoute.post("/addCart", verifyTokenAuth, cartItem );
 cartRoute.put("/updateCart", verifyTokenAuth, updatedCart );
-cartRoute.delete("/deleteCart", verifyTokenAuth, DeleteCart );
+cartRoute.delete("/deleteCart/:id", verifyTokenAuth, DeleteCart );
 cartRoute.get("/userCart/:userId", verifyTokenAuth, userCartItem );
 cartRoute.post("/userCartLength", verifyTokenAuth, userCartItemLength );
 cartRoute.get("/CartList", verifyAdmin, userAllCart );
