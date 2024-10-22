@@ -2,30 +2,43 @@ const cart = require("../models/cart");
 
 // create cart
 const cartItem = async (req, res) => {
- 
+  const { userId, productId, img, title, price } = req.body;
 
   try {
-    const newCart = new cart(req.body);
+    // Find existing cart by userId
+    let userCart = await cart.findOne({ userId: userId });
 
-    const savedCard = await newCart.save();
-
-    const userId = await newCart.findOne({userId:req.body.userId});
-
-    if(userId){
-      savedCard.products.push({
+    if (userCart) {
+      // If the user already has a cart, push the new product into the products array
+      userCart.products.push({
         productId,
         img,
         title,
         price
-      })
+      });
+      await userCart.save(); // Save the updated cart
+      res.status(200).json(userCart); // Return the updated cart
+    } else {
+      // If no cart exists for the user, create a new cart
+      const newCart = new cart({
+        userId,
+        products: [
+          {
+            productId,
+            img,
+            title,
+            price
+          }
+        ]
+      });
+      const savedCart = await newCart.save(); // Save the new cart
+      res.status(200).json(savedCart); // Return the newly created cart
     }
- 
-  
-    res.status(200).json(savedCard);
   } catch (error) {
     res.status(500).json(error);
   }
 };
+
 
 
 
