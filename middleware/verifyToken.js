@@ -29,7 +29,7 @@ const verifyTokenAuth = (req, res, next) => {
   verifyToken(req, res, () => {
     const { id } = req.params;
 
-    if (req.user.id === id || req.user.isAdmin) {
+    if (req.user.id) {
         next()
     }else{
         res.status(402).json({
