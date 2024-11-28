@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const jwtKey = process.env.JWT_SECRET;
+
+
+
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.sessionobject;
   if (authHeader) {
@@ -38,6 +41,8 @@ const verifyTokenAuth = (req, res, next) => {
     }
   });
 };
+
+
 const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.isAdmin) {
